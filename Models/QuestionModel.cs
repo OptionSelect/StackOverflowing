@@ -7,8 +7,8 @@ namespace StackOverflowing.Models
 		public int VoteCount { get; set; }
 		public String Title { get; set; }
         public String Body { get; set; }
-		public int UserID { get; set; }
-		public DateTime PostDate { get; set; }
+		public String UserID { get; set; }
+		public DateTime PostDate { get; set; } = DateTime.Now;
         public UserModel UserModel { get; set; }
 
         public QuestionModel()
