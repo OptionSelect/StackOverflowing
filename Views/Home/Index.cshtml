@@ -10,7 +10,7 @@
     @foreach(var item in Model)
     {
         <ul list-style="none">
-            <li>@item.Title</li>
+            <a href="/Question/Details/@item.ID">@item.Title</a>
         </ul>
     }
 
