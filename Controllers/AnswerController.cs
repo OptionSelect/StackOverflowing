@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,14 +19,17 @@ namespace StackOverflowing.Controllers
         {
             _context = context;
         }
+        
 
         // GET: Answer
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Answers.ToListAsync());
         }
 
         // GET: Answer/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +48,7 @@ namespace StackOverflowing.Controllers
         }
 
         // GET: Answer/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +59,7 @@ namespace StackOverflowing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("ID,VoteCount,Body,UserID,PostDate,QuestionID")] AnswerModel answerModel)
         {
             if (ModelState.IsValid)
@@ -66,6 +72,7 @@ namespace StackOverflowing.Controllers
         }
 
         // GET: Answer/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +93,7 @@ namespace StackOverflowing.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("ID,VoteCount,Body,UserID,PostDate,QuestionID")] AnswerModel answerModel)
         {
             if (id != answerModel.ID)
@@ -117,6 +125,7 @@ namespace StackOverflowing.Controllers
         }
 
         // GET: Answer/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +146,7 @@ namespace StackOverflowing.Controllers
         // POST: Answer/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var answerModel = await _context.Answers.SingleOrDefaultAsync(m => m.ID == id);
