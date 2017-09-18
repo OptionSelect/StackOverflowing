@@ -9,5 +9,11 @@ namespace StackOverflowing.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
+        public String ID { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public string Email { get; set; }
+		public string Username { get; set; }
+		public bool IsMod { get; set; }
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,91 +10,85 @@ using StackOverflowing.Models;
 
 namespace StackOverflowing.Controllers
 {
-    public class UserController : Controller
+    public class ApplicationUserController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public UserController(ApplicationDbContext context)
+        public ApplicationUserController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: User
-        [AllowAnonymous]
+        // GET: ApplicationUser
         public async Task<IActionResult> Index()
         {
             return View(await _context.Userinos.ToListAsync());
         }
 
-        // GET: User/Details/5
-        [Authorize]
-        public async Task<IActionResult> Details(int? id)
+        // GET: ApplicationUser/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var userModel = await _context.Userinos
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (userModel == null)
+            var applicationUser = await _context.Userinos
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(userModel);
+            return View(applicationUser);
         }
 
-        // GET: User/Create
-        [Authorize]
+        // GET: ApplicationUser/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
+        // POST: ApplicationUser/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Email,Username,IsMod")] UserModel userModel)
+        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Email,Username,IsMod,Id,UserName,NormalizedUserName,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(userModel);
+                _context.Add(applicationUser);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(userModel);
+            return View(applicationUser);
         }
 
-        // GET: User/Edit/5
-        [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        // GET: ApplicationUser/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var userModel = await _context.Userinos.SingleOrDefaultAsync(m => m.ID == id);
-            if (userModel == null)
+            var applicationUser = await _context.Userinos.SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
             {
                 return NotFound();
             }
-            return View(userModel);
+            return View(applicationUser);
         }
 
-        // POST: User/Edit/5
+        // POST: ApplicationUser/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Username,IsMod")] UserModel userModel)
+        public async Task<IActionResult> Edit(string id, [Bind("ID,FirstName,LastName,Email,Username,IsMod,Id,UserName,NormalizedUserName,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
         {
-            if (id != userModel.ID)
+            if (id != applicationUser.Id)
             {
                 return NotFound();
             }
@@ -104,12 +97,12 @@ namespace StackOverflowing.Controllers
             {
                 try
                 {
-                    _context.Update(userModel);
+                    _context.Update(applicationUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserModelExists(userModel.ID))
+                    if (!ApplicationUserExists(applicationUser.Id))
                     {
                         return NotFound();
                     }
@@ -120,43 +113,41 @@ namespace StackOverflowing.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(userModel);
+            return View(applicationUser);
         }
 
-        // GET: User/Delete/5
-        [Authorize]
-        public async Task<IActionResult> Delete(int? id)
+        // GET: ApplicationUser/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var userModel = await _context.Userinos
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (userModel == null)
+            var applicationUser = await _context.Userinos
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(userModel);
+            return View(applicationUser);
         }
 
-        // POST: User/Delete/5
+        // POST: ApplicationUser/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var userModel = await _context.Userinos.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Userinos.Remove(userModel);
+            var applicationUser = await _context.Userinos.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Userinos.Remove(applicationUser);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserModelExists(int id)
+        private bool ApplicationUserExists(string id)
         {
-            return _context.Userinos.Any(e => e.ID == id);
+            return _context.Userinos.Any(e => e.Id == id);
         }
     }
 }

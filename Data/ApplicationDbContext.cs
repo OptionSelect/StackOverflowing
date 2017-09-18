@@ -15,7 +15,7 @@ namespace StackOverflowing.Data
         public DbSet<QtieModel> Qties {get; set;}
         public DbSet<QuestionModel> Questions {get; set;}
         public DbSet<TagModel> Tags {get; set;}
-        public DbSet<UserModel> Userinos {get; set;}
+        public DbSet<ApplicationUser> Userinos {get; set;}
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

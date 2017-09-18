@@ -12,7 +12,7 @@ namespace StackOverflowing.Models
         public int QuestionID { get; set; }
         public int AnswerID { get; set; }
 
-        public UserModel UserModel { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
         public QuestionModel QuestionModel { get; set; }
         public AnswerModel AnswerModel { get; set; }
 

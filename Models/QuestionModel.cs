@@ -9,7 +9,7 @@ namespace StackOverflowing.Models
         public String Body { get; set; }
 		public String UserID { get; set; }
 		public DateTime PostDate { get; set; } = DateTime.Now;
-        public UserModel UserModel { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
         public QuestionModel()
         {
