@@ -1,3 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model List<QuestionModel>
+
+<br>
+<br>
+<section>
+    <h4>Questions</h4>
+    @foreach(var item in Model)
+    {
+        <ul list-style="none">
+            <li>@item.Title</li>
+        </ul>
+    }
+
+</section>
