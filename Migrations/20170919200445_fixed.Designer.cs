@@ -11,9 +11,10 @@ using System;
 namespace StackOverflowing.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170919200445_fixed")]
+    partial class @fixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,7 +215,9 @@ namespace StackOverflowing.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AnswerModelID");
+                    b.Property<int>("AnswerID");
+
+                    b.Property<int?>("AnswerModelID");
 
                     b.Property<string>("ApplicationUserId");
 
@@ -222,7 +225,9 @@ namespace StackOverflowing.Migrations
 
                     b.Property<DateTime>("PostDate");
 
-                    b.Property<int>("QuestionModelID");
+                    b.Property<int>("QuestionID");
+
+                    b.Property<int?>("QuestionModelID");
 
                     b.HasKey("ID");
 
@@ -352,8 +357,7 @@ namespace StackOverflowing.Migrations
                 {
                     b.HasOne("StackOverflowing.Models.AnswerModel", "AnswerModel")
                         .WithMany()
-                        .HasForeignKey("AnswerModelID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AnswerModelID");
 
                     b.HasOne("StackOverflowing.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
@@ -361,8 +365,7 @@ namespace StackOverflowing.Migrations
 
                     b.HasOne("StackOverflowing.Models.QuestionModel", "QuestionModel")
                         .WithMany()
-                        .HasForeignKey("QuestionModelID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("QuestionModelID");
                 });
 
             modelBuilder.Entity("StackOverflowing.Models.QtieModel", b =>

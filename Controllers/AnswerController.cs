@@ -52,8 +52,9 @@ namespace StackOverflowing.Controllers
 
         // GET: Answer/Create
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            ViewData["questionId"] = id;
             return View();
         }
 
@@ -63,18 +64,23 @@ namespace StackOverflowing.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([FromRoute] int questionId, [Bind("ID,VoteCount,Body,PostDate")] AnswerModel answerModel, QuestionModel questionModel)
+        public async Task<IActionResult> Create([FromForm] int questionId, [FromForm] string body)
         {
+
+            Console.WriteLine($"creating answer afor {questionId}");
+            
             if (ModelState.IsValid)
             {                
                 var user = await _userManager.GetUserAsync(User);
-                answerModel.ApplicationUserId = user.Id;
-                answerModel.QuestionModelID = questionId;
-                _context.Add(answerModel);
+                var newAnswer = new AnswerModel {QuestionModelID = questionId, Body = body, ApplicationUserId = user.Id};
+               
+                Console.WriteLine($"A - {newAnswer.QuestionModelID}, {newAnswer.Body}, {newAnswer.ApplicationUserId}");
+                
+                _context.Answers.Add(newAnswer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Details", "Question", new {id=questionId});
             }
-            return View(answerModel);
+            return View();
         }
 
         // GET: Answer/Edit/5

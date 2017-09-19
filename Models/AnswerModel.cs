@@ -16,5 +16,6 @@ namespace StackOverflowing.Models
         public AnswerModel()
         {
         }
+
     }
 }
