@@ -119,7 +119,7 @@ namespace StackOverflowing.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(answerModel);
         }
@@ -152,7 +152,7 @@ namespace StackOverflowing.Controllers
             var answerModel = await _context.Answers.SingleOrDefaultAsync(m => m.ID == id);
             _context.Answers.Remove(answerModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool AnswerModelExists(int id)

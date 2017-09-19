@@ -118,7 +118,7 @@ namespace StackOverflowing.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(commentModel);
         }
@@ -151,7 +151,7 @@ namespace StackOverflowing.Controllers
             var commentModel = await _context.Comments.SingleOrDefaultAsync(m => m.ID == id);
             _context.Comments.Remove(commentModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool CommentModelExists(int id)
