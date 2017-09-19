@@ -11,9 +11,6 @@ using StackOverflowing.Models;
 
 namespace StackOverflowing.Controllers
 {
-        
-
-        
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -12,7 +12,6 @@ namespace StackOverflowing.Models
         public String ID { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
-		public string Username { get; set; }
 		public bool IsMod { get; set; }
     }
 }
