@@ -34,6 +34,8 @@ namespace StackOverflowing.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
+            ViewData["questionId"] = id;
+
             if (id == null)
             {
                 return NotFound();

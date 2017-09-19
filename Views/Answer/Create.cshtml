@@ -20,12 +20,12 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
-            <input type="hidden" name="questionId" value=@ViewData["questionId"] />
+            <input type="hidden" name="questionId" value="@ViewData["questionId"]" />
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index" asp-controller="Home">Back to List</a>
+    <a asp-action="Index" asp-controller="Home" >Back to List</a>
 </div>
 

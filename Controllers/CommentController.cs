@@ -51,8 +51,9 @@ namespace StackOverflowing.Controllers
 
         // GET: Comment/Create
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            ViewData["questionId"] = id;
             return View();
         }
 
@@ -62,17 +63,18 @@ namespace StackOverflowing.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,Body,UserID,PostDate,QuestionID,AnswerID")] CommentModel commentModel)
+        public async Task<IActionResult> Create([FromForm] int questionId, [FromForm] string body)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-                commentModel.ApplicationUserId = user.Id;
-                _context.Add(commentModel);
+                var newComment = new CommentModel {QuestionModelID = questionId, Body = body, ApplicationUserId = user.Id};
+
+                _context.Add(newComment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
-            return View(commentModel);
+            return View();
         }
 
         // GET: Comment/Edit/5

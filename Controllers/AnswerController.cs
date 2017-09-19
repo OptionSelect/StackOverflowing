@@ -67,7 +67,7 @@ namespace StackOverflowing.Controllers
         public async Task<IActionResult> Create([FromForm] int questionId, [FromForm] string body)
         {
 
-            Console.WriteLine($"creating answer afor {questionId}");
+            Console.WriteLine($"creating answer for {questionId}");
             
             if (ModelState.IsValid)
             {                
@@ -78,7 +78,7 @@ namespace StackOverflowing.Controllers
                 
                 _context.Answers.Add(newAnswer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details", "Question", new {id=questionId});
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
