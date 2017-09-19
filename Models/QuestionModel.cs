@@ -8,6 +8,7 @@ namespace StackOverflowing.Models
 		public String Title { get; set; }
         public String Body { get; set; }
 		public String UserID { get; set; }
+        public String ApplicationUserId { get; set; }
 		public DateTime PostDate { get; set; } = DateTime.Now;
         public ApplicationUser ApplicationUser { get; set; }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,12 @@ namespace StackOverflowing.Controllers
     public class AnswerController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AnswerController(ApplicationDbContext context)
+        public AnswerController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         
 
@@ -49,7 +52,7 @@ namespace StackOverflowing.Controllers
 
         // GET: Answer/Create
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Create(int QuestionID)
         {
             return View();
         }
@@ -60,10 +63,12 @@ namespace StackOverflowing.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,VoteCount,Body,UserID,PostDate,QuestionID")] AnswerModel answerModel)
+        public async Task<IActionResult> Create([Bind("ID,VoteCount,Body,PostDate")] AnswerModel answerModel)
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
+                answerModel.ApplicationUserId = user.Id;
                 _context.Add(answerModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");

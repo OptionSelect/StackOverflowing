@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,12 @@ namespace StackOverflowing.Controllers
     public class CommentController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CommentController(ApplicationDbContext context)
+        public CommentController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Comment
@@ -63,6 +66,8 @@ namespace StackOverflowing.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
+                commentModel.ApplicationUserId = user.Id;
                 _context.Add(commentModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
@@ -93,7 +98,7 @@ namespace StackOverflowing.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Body,UserID,PostDate,QuestionID,AnswerID")] CommentModel commentModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Body,PostDate")] CommentModel commentModel)
         {
             if (id != commentModel.ID)
             {

@@ -11,7 +11,7 @@ namespace StackOverflowing.Models
         public DateTime PostDate { get; set; }
         public int QuestionID { get; set; }
         public int AnswerID { get; set; }
-
+        public String ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public QuestionModel QuestionModel { get; set; }
         public AnswerModel AnswerModel { get; set; }
