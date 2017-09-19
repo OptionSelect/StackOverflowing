@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using StackOverflowing.Data;
 using System;
 
-namespace StackOverflowing.Data.Migrations
+namespace StackOverflowing.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170918214443_ApplicationUser_mig")]
-    partial class ApplicationUser_mig
+    [Migration("20170919130116_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

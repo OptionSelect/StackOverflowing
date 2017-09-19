@@ -10,7 +10,6 @@ namespace StackOverflowing.Models
 		public String UserID { get; set; }
 		public DateTime PostDate { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-
         public CommentModel comment {get; set;}
         public string CommentBody { get; set; }
         public string AnswerBody { get; set; }

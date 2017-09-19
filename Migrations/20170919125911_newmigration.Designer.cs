@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using StackOverflowing.Data;
 using System;
 
-namespace StackOverflowing.Data.Migrations
+namespace StackOverflowing.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170918191447_QtieModel_mig")]
-    partial class QtieModel_mig
+    [Migration("20170919125911_newmigration")]
+    partial class newmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -133,6 +133,8 @@ namespace StackOverflowing.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("Body");
 
                     b.Property<DateTime>("PostDate");
@@ -141,17 +143,15 @@ namespace StackOverflowing.Data.Migrations
 
                     b.Property<int?>("QuestionModelID");
 
-                    b.Property<int>("UserID");
-
-                    b.Property<int?>("UserModelID");
+                    b.Property<string>("UserID");
 
                     b.Property<int>("VoteCount");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("QuestionModelID");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("UserModelID");
+                    b.HasIndex("QuestionModelID");
 
                     b.ToTable("Answers");
                 });
@@ -170,6 +170,14 @@ namespace StackOverflowing.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("ID");
+
+                    b.Property<bool>("IsMod");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -194,6 +202,8 @@ namespace StackOverflowing.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("Username");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -215,6 +225,8 @@ namespace StackOverflowing.Data.Migrations
 
                     b.Property<int?>("AnswerModelID");
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("Body");
 
                     b.Property<DateTime>("PostDate");
@@ -223,17 +235,15 @@ namespace StackOverflowing.Data.Migrations
 
                     b.Property<int?>("QuestionModelID");
 
-                    b.Property<int>("UserID");
-
-                    b.Property<int?>("UserModelID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
                     b.HasIndex("AnswerModelID");
 
-                    b.HasIndex("QuestionModelID");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("UserModelID");
+                    b.HasIndex("QuestionModelID");
 
                     b.ToTable("Comments");
                 });
@@ -265,21 +275,21 @@ namespace StackOverflowing.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("Body");
 
                     b.Property<DateTime>("PostDate");
 
                     b.Property<string>("Title");
 
-                    b.Property<int>("UserID");
-
-                    b.Property<int?>("UserModelID");
+                    b.Property<string>("UserID");
 
                     b.Property<int>("VoteCount");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserModelID");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Questions");
                 });
@@ -294,26 +304,6 @@ namespace StackOverflowing.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("StackOverflowing.Models.UserModel", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<bool>("IsMod");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("Username");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Userinos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -363,13 +353,13 @@ namespace StackOverflowing.Data.Migrations
 
             modelBuilder.Entity("StackOverflowing.Models.AnswerModel", b =>
                 {
+                    b.HasOne("StackOverflowing.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("StackOverflowing.Models.QuestionModel", "QuestionModel")
                         .WithMany()
                         .HasForeignKey("QuestionModelID");
-
-                    b.HasOne("StackOverflowing.Models.UserModel", "UserModel")
-                        .WithMany()
-                        .HasForeignKey("UserModelID");
                 });
 
             modelBuilder.Entity("StackOverflowing.Models.CommentModel", b =>
@@ -378,13 +368,13 @@ namespace StackOverflowing.Data.Migrations
                         .WithMany()
                         .HasForeignKey("AnswerModelID");
 
+                    b.HasOne("StackOverflowing.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("StackOverflowing.Models.QuestionModel", "QuestionModel")
                         .WithMany()
                         .HasForeignKey("QuestionModelID");
-
-                    b.HasOne("StackOverflowing.Models.UserModel", "UserModel")
-                        .WithMany()
-                        .HasForeignKey("UserModelID");
                 });
 
             modelBuilder.Entity("StackOverflowing.Models.QtieModel", b =>
@@ -400,9 +390,9 @@ namespace StackOverflowing.Data.Migrations
 
             modelBuilder.Entity("StackOverflowing.Models.QuestionModel", b =>
                 {
-                    b.HasOne("StackOverflowing.Models.UserModel", "UserModel")
+                    b.HasOne("StackOverflowing.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("UserModelID");
+                        .HasForeignKey("ApplicationUserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace StackOverflowing.Data.Migrations
+namespace StackOverflowing.Migrations
 {
-    public partial class QtieModel_mig : Migration
+    public partial class deletedappuseremailcolumn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
