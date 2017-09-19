@@ -11,7 +11,9 @@
     {
         <ul list-style="none">
             <a href="/Question/Details/@item.ID">@item.Title</a>
-            <span> Posted on: @item.PostDate </span>
+            <span> Posted on: @item.PostDate | </span>
+            <span><a asp-controller="Answer" asp-action="Create">Answer</a></span> | 
+            <span><a asp-controller="Comment" asp-action="Create">Comment</a> </span>
         </ul>
     }
 
