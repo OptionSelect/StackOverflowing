@@ -11,8 +11,8 @@ using System;
 namespace StackOverflowing.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170919174232_gotridofextraids")]
-    partial class gotridofextraids
+    [Migration("20170919194942_newdbmade")]
+    partial class newdbmade
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -139,9 +139,7 @@ namespace StackOverflowing.Migrations
 
                     b.Property<DateTime>("PostDate");
 
-                    b.Property<int>("QuestionID");
-
-                    b.Property<int?>("QuestionModelID");
+                    b.Property<int>("QuestionModelID");
 
                     b.Property<int>("VoteCount");
 
@@ -351,7 +349,8 @@ namespace StackOverflowing.Migrations
 
                     b.HasOne("StackOverflowing.Models.QuestionModel", "QuestionModel")
                         .WithMany()
-                        .HasForeignKey("QuestionModelID");
+                        .HasForeignKey("QuestionModelID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("StackOverflowing.Models.CommentModel", b =>

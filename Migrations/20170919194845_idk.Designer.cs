@@ -11,8 +11,8 @@ using System;
 namespace StackOverflowing.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170919130320_deletedappuseremailcolumn")]
-    partial class deletedappuseremailcolumn
+    [Migration("20170919194845_idk")]
+    partial class idk
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -139,11 +139,7 @@ namespace StackOverflowing.Migrations
 
                     b.Property<DateTime>("PostDate");
 
-                    b.Property<int>("QuestionID");
-
-                    b.Property<int?>("QuestionModelID");
-
-                    b.Property<string>("UserID");
+                    b.Property<int>("QuestionModelID");
 
                     b.Property<int>("VoteCount");
 
@@ -202,8 +198,6 @@ namespace StackOverflowing.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<string>("Username");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -234,8 +228,6 @@ namespace StackOverflowing.Migrations
                     b.Property<int>("QuestionID");
 
                     b.Property<int?>("QuestionModelID");
-
-                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
@@ -282,8 +274,6 @@ namespace StackOverflowing.Migrations
                     b.Property<DateTime>("PostDate");
 
                     b.Property<string>("Title");
-
-                    b.Property<string>("UserID");
 
                     b.Property<int>("VoteCount");
 
@@ -359,7 +349,8 @@ namespace StackOverflowing.Migrations
 
                     b.HasOne("StackOverflowing.Models.QuestionModel", "QuestionModel")
                         .WithMany()
-                        .HasForeignKey("QuestionModelID");
+                        .HasForeignKey("QuestionModelID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("StackOverflowing.Models.CommentModel", b =>

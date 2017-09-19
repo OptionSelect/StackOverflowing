@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace StackOverflowing.Migrations
 {
-    public partial class newmigration : Migration
+    public partial class idk : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,8 +45,7 @@ namespace StackOverflowing.Migrations
                     PhoneNumberConfirmed = table.Column<bool>(type: "bool", nullable: false),
                     SecurityStamp = table.Column<string>(type: "text", nullable: true),
                     TwoFactorEnabled = table.Column<bool>(type: "bool", nullable: false),
-                    UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true),
-                    Username = table.Column<string>(type: "text", nullable: true)
+                    UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -182,7 +181,6 @@ namespace StackOverflowing.Migrations
                     Body = table.Column<string>(type: "text", nullable: true),
                     PostDate = table.Column<DateTime>(type: "timestamp", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: true),
-                    UserID = table.Column<string>(type: "text", nullable: true),
                     VoteCount = table.Column<int>(type: "int4", nullable: false)
                 },
                 constraints: table =>
@@ -205,9 +203,7 @@ namespace StackOverflowing.Migrations
                     ApplicationUserId = table.Column<string>(type: "text", nullable: true),
                     Body = table.Column<string>(type: "text", nullable: true),
                     PostDate = table.Column<DateTime>(type: "timestamp", nullable: false),
-                    QuestionID = table.Column<int>(type: "int4", nullable: false),
-                    QuestionModelID = table.Column<int>(type: "int4", nullable: true),
-                    UserID = table.Column<string>(type: "text", nullable: true),
+                    QuestionModelID = table.Column<int>(type: "int4", nullable: false),
                     VoteCount = table.Column<int>(type: "int4", nullable: false)
                 },
                 constraints: table =>
@@ -224,7 +220,7 @@ namespace StackOverflowing.Migrations
                         column: x => x.QuestionModelID,
                         principalTable: "Questions",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -267,8 +263,7 @@ namespace StackOverflowing.Migrations
                     Body = table.Column<string>(type: "text", nullable: true),
                     PostDate = table.Column<DateTime>(type: "timestamp", nullable: false),
                     QuestionID = table.Column<int>(type: "int4", nullable: false),
-                    QuestionModelID = table.Column<int>(type: "int4", nullable: true),
-                    UserID = table.Column<string>(type: "text", nullable: true)
+                    QuestionModelID = table.Column<int>(type: "int4", nullable: true)
                 },
                 constraints: table =>
                 {

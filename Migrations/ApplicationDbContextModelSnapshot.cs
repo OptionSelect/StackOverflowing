@@ -138,9 +138,7 @@ namespace StackOverflowing.Migrations
 
                     b.Property<DateTime>("PostDate");
 
-                    b.Property<int>("QuestionID");
-
-                    b.Property<int?>("QuestionModelID");
+                    b.Property<int>("QuestionModelID");
 
                     b.Property<int>("VoteCount");
 
@@ -350,7 +348,8 @@ namespace StackOverflowing.Migrations
 
                     b.HasOne("StackOverflowing.Models.QuestionModel", "QuestionModel")
                         .WithMany()
-                        .HasForeignKey("QuestionModelID");
+                        .HasForeignKey("QuestionModelID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("StackOverflowing.Models.CommentModel", b =>

@@ -52,7 +52,7 @@ namespace StackOverflowing.Controllers
 
         // GET: Answer/Create
         [Authorize]
-        public IActionResult Create(int QuestionID)
+        public IActionResult Create()
         {
             return View();
         }
@@ -63,12 +63,13 @@ namespace StackOverflowing.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,VoteCount,Body,PostDate")] AnswerModel answerModel)
+        public async Task<IActionResult> Create([FromRoute] int questionId, [Bind("ID,VoteCount,Body,PostDate")] AnswerModel answerModel, QuestionModel questionModel)
         {
             if (ModelState.IsValid)
-            {
+            {                
                 var user = await _userManager.GetUserAsync(User);
                 answerModel.ApplicationUserId = user.Id;
+                answerModel.QuestionModelID = questionId;
                 _context.Add(answerModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
