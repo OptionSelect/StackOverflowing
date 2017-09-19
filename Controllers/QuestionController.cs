@@ -65,7 +65,7 @@ namespace StackOverflowing.Controllers
             {
                 _context.Add(questionModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(questionModel);
         }
