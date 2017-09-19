@@ -6,7 +6,6 @@ namespace StackOverflowing.Models
         public int ID { get; set; }
         public int QuestionID { get; set; }
         public int TagID { get; set; }
-
         public QuestionModel QuestionModel { get; set; }
         public TagModel TagModel { get; set; }
 

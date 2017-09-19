@@ -7,7 +7,6 @@ namespace StackOverflowing.Models
     {
         public int ID { get; set; }
         public string Body { get; set; }
-        public String UserID { get; set; }
         public DateTime PostDate { get; set; }
         public int QuestionID { get; set; }
         public int AnswerID { get; set; }
