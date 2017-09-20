@@ -27,12 +27,13 @@
      <p>Viewing @Model.Answers.Count answers</p>
         @foreach(var answer in Model.Answers)
         {
-            <p>@answer.Body</p>
+            <p>@answer.Body - 
+            Posted by @answer.ApplicationUser.UserName</p>
         }
 </section>
 <div>
     <a asp-controller="Answer" asp-action="Create" asp-route-id="@Model.ID">Answer</a></span> | 
     <a asp-controller="Comment" asp-action="Create" asp-route-id="@Model.ID">Comment</a> | 
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-controller = "Question" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-controller = "Home" asp-action="Index">Back to List</a>
 </div>

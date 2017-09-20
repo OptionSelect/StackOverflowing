@@ -65,10 +65,7 @@ namespace StackOverflowing.Controllers
         [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<IActionResult> Create([FromForm] int questionId, [FromForm] string body)
-        {
-
-            Console.WriteLine($"creating answer for {questionId}");
-            
+        {            
             if (ModelState.IsValid)
             {                
                 var user = await _userManager.GetUserAsync(User);
