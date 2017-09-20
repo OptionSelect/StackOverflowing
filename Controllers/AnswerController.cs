@@ -78,7 +78,7 @@ namespace StackOverflowing.Controllers
                 
                 _context.Answers.Add(newAnswer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Details), "Question", new { id = newAnswer.QuestionModelID });
             }
             return View();
         }
