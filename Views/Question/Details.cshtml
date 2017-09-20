@@ -21,9 +21,15 @@
             <strong>@Html.DisplayNameFor(model => model.VoteCount)</strong> | 
             @Html.DisplayFor(model => model.VoteCount)
         </span>
-       
     </dl>
 </div>
+<section>
+     <p>Viewing @Model.Answers.Count answers</p>
+        @foreach(var answer in Model.Answers)
+        {
+            <p>@answer.Body</p>
+        }
+</section>
 <div>
     <a asp-controller="Answer" asp-action="Create" asp-route-id="@Model.ID">Answer</a></span> | 
     <a asp-controller="Comment" asp-action="Create" asp-route-id="@Model.ID">Comment</a> | 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace StackOverflowing.Models
 {
     public class QuestionModel
@@ -10,6 +12,7 @@ namespace StackOverflowing.Models
         public String ApplicationUserId { get; set; }
 		public DateTime PostDate { get; set; } = DateTime.Now;
         public ApplicationUser ApplicationUser { get; set; }
+        public ICollection<AnswerModel> Answers { get; set; } = new HashSet<AnswerModel>();
 
         public QuestionModel()
         {

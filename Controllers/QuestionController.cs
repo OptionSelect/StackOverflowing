@@ -42,6 +42,8 @@ namespace StackOverflowing.Controllers
             }
 
             var questionModel = await _context.Questions
+                .Include(q => q.ApplicationUser)
+                .Include(i => i.Answers)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (questionModel == null)
             {

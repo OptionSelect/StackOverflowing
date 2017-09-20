@@ -49,8 +49,7 @@ namespace StackOverflowing.Controllers
             return View(commentModel);
         }
 
-        //Second Blowup
-        // GET: Comment/Create
+         // GET: Comment/Create
         [Authorize]
         public IActionResult Create(int id)
         {
@@ -65,13 +64,15 @@ namespace StackOverflowing.Controllers
         [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<IActionResult> Create([FromForm] int questionId, [FromForm] string body)
-        {
+        {            
             if (ModelState.IsValid)
-            {
+            {                
                 var user = await _userManager.GetUserAsync(User);
                 var newComment = new CommentModel {QuestionModelID = questionId, Body = body, ApplicationUserId = user.Id};
-
-                _context.Add(newComment);
+               
+                Console.WriteLine($"A - {newComment.QuestionModelID}, {newComment.Body}, {newComment.ApplicationUserId}");
+                
+                _context.Comments.Add(newComment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
@@ -128,7 +129,7 @@ namespace StackOverflowing.Controllers
                 }
                 return RedirectToAction("Index", "Home");
             }
-            return View(commentModel);
+            return View();
         }
 
         // GET: Comment/Delete/5
