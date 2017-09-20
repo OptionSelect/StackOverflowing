@@ -13,8 +13,6 @@ namespace StackOverflowing.Models
         public String ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public QuestionModel QuestionModel { get; set; }
-        public AnswerModel AnswerModel { get; set; }
-
         public CommentModel()
         {
         }
