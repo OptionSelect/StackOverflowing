@@ -25,8 +25,8 @@
     </dl>
 </div>
 <div>
-    <a asp-controller="Answer" asp-action="Create" asp-route-id=@item.ID>Answer</a></span> | 
-    <a asp-controller="Comment" asp-action="Create" asp-route-id=@item.ID>Comment</a> | 
+    <a asp-controller="Answer" asp-action="Create" asp-route-id="@Model.ID">Answer</a></span> | 
+    <a asp-controller="Comment" asp-action="Create" asp-route-id="@Model.ID">Comment</a> | 
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
